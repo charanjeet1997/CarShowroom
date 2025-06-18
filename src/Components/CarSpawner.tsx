@@ -6,21 +6,23 @@ interface Props
 {
     id?: number;
     handler: CarDataHandler
+    color: Color
 }
-function CarSpawner({handler,id}: Props)
+function CarSpawner({handler,id,color}: Props)
 {
     return <>
 
-        <SpawnCar id={id} handler={handler}></SpawnCar>
+        <SpawnCar id={id} handler={handler} color={color}></SpawnCar>
         {/*<SpawnCar id={0}></SpawnCar>*/}
     </>
 }
 
-function SpawnCar({id,handler}:Props)
+function SpawnCar({id,handler,color}:Props)
 {
     const car = useGLTF(handler.GetCarData(id as number).modelPath);
     car.scene.traverse((child) => {
         const mesh = child as Mesh;
+        mesh.castShadow = true;
         if(mesh.material)
         {
             const material = mesh.material as MeshStandardMaterial;
@@ -35,12 +37,11 @@ function SpawnCar({id,handler}:Props)
                 material.roughness = 0.2;
                 material.metalness = 0.4;
             }
-            material.color = new Color().setRGB(1,1,1);
+            if(material.name.toLowerCase()==="body")
+                material.color = color;
         }
     })
     car.scene.scale.set(100,100,100);
-    car.scene.castShadow = true;
-    car.scene.receiveShadow = true;
     return <primitive object={car.scene} />;
 }
 

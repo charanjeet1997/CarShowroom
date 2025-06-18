@@ -1,15 +1,20 @@
 export function DirectionalLight() {
-    return <directionalLight  color="white" position={[5,500,1]}
-          intensity={1} castShadow={true} receiveShadow={true} frustumCulled={true}  shadow-mapSize-width={1024}
-                              shadow-mapSize-height={1024}
-                              shadow-camera-left={-10}
-                              shadow-camera-right={10}
-                              shadow-camera-top={10}
-                              shadow-camera-bottom={-10} />
+    return <directionalLight
+        position={[-15, 20, 0]}
+        intensity={1}
+        castShadow
+        shadow-bias={-0.0005}
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+        shadow-camera-left={-50}
+        shadow-camera-right={50}
+        shadow-camera-top={50}
+        shadow-camera-bottom={-50}
+    />
 }
 
 export function AmbientLight() {
-    return <ambientLight  color="white" intensity={1} castShadow={true} receiveShadow={true} />
+    return <ambientLight  color="white" intensity={1} />
 }
 
 export function HemisphereLight() {
