@@ -43,9 +43,7 @@ function App() {
 
                 </Environment>
             </Canvas>
-        </div>
-        <div className={Styles['canvasContainer']}>
-            <UIHandler handler={handler} GetCarID={SetSelectedCarId} GetAutoRotate={SetAutoRotate} autoRotate={autoRotate} GetColor={SetColor}></UIHandler>
+        <UIHandler handler={handler} GetCarID={SetSelectedCarId} GetAutoRotate={SetAutoRotate} autoRotate={autoRotate} GetColor={SetColor}></UIHandler>
         </div>
     </>
 }
