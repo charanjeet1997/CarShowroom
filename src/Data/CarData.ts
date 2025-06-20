@@ -1,8 +1,11 @@
+import type {ColorData} from "./Data.ts";
+
 export interface CarData
 {
     id: number;
     name: string;
     modelPath: string;
+    Colors: ColorData[];
 }
 
 export class CarDataHandler{

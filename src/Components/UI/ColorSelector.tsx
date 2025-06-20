@@ -1,35 +1,36 @@
 import Styles from './ColorSelector.module.css';
-import ColorData from "../../Data/ColorData.ts";
-import type {Color} from "three";
+import type {ColorData} from "../../Data/Data.ts";
+import type { Color } from "three";
 
 interface Props {
     OnClick?: (color: Color) => void;
-    onBack?: (uiID: number) => void; // <-- Added Back button handler
+    onBack?: (uiID: number) => void;
+    colorData: ColorData[];
 }
 
-function ColorSelector({ OnClick, onBack }: Props) {
+function ColorSelector({ OnClick, onBack ,colorData}: Props) {
     return (
-        <footer className={Styles['carMenu']}>
-            {/* Back Button */}
-            <button className={Styles['backButton']} onClick={()=>{
-                if(onBack)
-                    onBack(0);
-            }}>
-            ⬅ Back
+        <>
+            <button className={Styles.backButton} onClick={() => onBack?.(0)}>
+                ← Back
             </button>
 
-            {/* Car Selection Buttons */}
-
-            {Object.entries(ColorData).map(([key, value]) => (
-                <button
-                    key={key}
-                    className={Styles['carButton']}
-                    onClick={() => OnClick?.(value)}
-                >
-                    {key}
-                </button>
-            ))}
-        </footer>
+            <div className={Styles.colorMenu}>
+                {colorData.map((data: ColorData) => (
+                    <button
+                        key={data.name}
+                        className={Styles.colorButton}
+                        onClick={() => OnClick?.(data.color)}
+                        title={data.name} // hover shows the name
+                    >
+                        <span
+                            className={Styles.colorSwatch}
+                            style={{ background: `rgb(${data.color.r * 255}, ${data.color.g * 255}, ${data.color.b * 255})` }}
+                        />
+                    </button>
+                ))}
+            </div>
+        </>
     );
 }
 

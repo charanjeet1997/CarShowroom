@@ -26,22 +26,34 @@ function SpawnCar({id,handler,color}:Props)
         if(mesh.material)
         {
             const material = mesh.material as MeshStandardMaterial;
-            if(material.name.toLowerCase().includes('tyre')||
-                material.name.toLowerCase().includes('wheel')||
-                material.name.toLowerCase().includes('neuma'))
+            if(material.name.toLowerCase().includes('tyre'))
             {
                 material.roughness = 0.8;
                 material.metalness = 0.1;
             }
-            else {
-                material.roughness = 0.2;
-                material.metalness = 0.4;
+            else if(material.name.toLowerCase().includes("window"))
+            {
+                material.roughness = 0.15;
+                material.metalness = 0.5;
             }
-            if(material.name.toLowerCase()==="body")
+            else if(material.name.toLowerCase().includes("body"))  {
+                material.roughness = .08;
+                material.metalness = .45;
+            }
+            else if(material.name.toLowerCase().includes("rim"))  {
+                material.roughness = .08;
+                material.metalness = .45;
+            }
+            else
+            {
+                material.roughness = .5;
+                material.metalness = .1;
+            }
+            if(material.name.toLowerCase().includes("body"  ))
                 material.color = color;
         }
     })
-    car.scene.scale.set(100,100,100);
+    car.scene.scale.set(1,1,1);
     return <primitive object={car.scene} />;
 }
 

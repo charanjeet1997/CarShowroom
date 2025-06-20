@@ -5,6 +5,7 @@ import {useState} from "react";
 import type {CarDataHandler} from "../../Data/CarData.ts";
 import ColorSelector from "./ColorSelector.tsx";
 import type {Color} from "three";
+import type {ColorData} from "../../Data/Data.ts";
 
 interface Props {
     handler: CarDataHandler
@@ -12,8 +13,9 @@ interface Props {
     GetColor: (color:Color) => void;
     autoRotate: boolean;
     GetAutoRotate: (autoRotate: boolean) => void;
+    colorData: ColorData[];
 }
-function UIHandler({handler,GetCarID,GetAutoRotate,autoRotate,GetColor}: Props) {
+function UIHandler({handler,GetCarID,GetAutoRotate,autoRotate,GetColor,colorData}: Props) {
     const [currentUI, setCurrentUI] = useState<keyof typeof UIData>(0);
     // const [carID, setCarID] = useState<number>(0);
     return (
@@ -30,7 +32,7 @@ function UIHandler({handler,GetCarID,GetAutoRotate,autoRotate,GetColor}: Props) 
             }}
             OnClick={GetCarID} />}
 
-            {UIData[currentUI] === "ColorSelector" && <ColorSelector  onBack={(uiID: number) => {
+            {UIData[currentUI] === "ColorSelector" && <ColorSelector colorData={colorData}  onBack={(uiID: number) => {
                 console.log(uiID);
                 setCurrentUI(uiID as keyof typeof UIData);
             }}
