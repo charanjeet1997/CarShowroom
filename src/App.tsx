@@ -1,25 +1,30 @@
 import {Canvas} from "@react-three/fiber";
 import {AmbientLight, DirectionalLight, HemisphereLight} from "./Components/LightHandler.tsx";
-import {Environment, PerspectiveCamera} from "@react-three/drei";
+import { Environment,PerspectiveCamera} from "@react-three/drei";
 import Styles from './App.module.css';
 import OrbitControlsHandler from "./Components/OrbitControlsHandler.tsx";
 import CarSpawner from "./Components/CarSpawner.tsx";
 import {CarDataHandler} from "./Data/CarData.ts";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import UIHandler from "./Components/UI/UIHandler.tsx";
-import { Color } from "three";
+import {Color, type Group, type Object3DEventMap} from "three";
+import CarPropertiesUpdater from "./Components/CarPropertiesUpdater.tsx";
 
 
-let handler: CarDataHandler;
 function App() {
-    handler = Init();
+    const handler = useMemo(() => Init(), []);
     const [selectedCarId, SetSelectedCarId] = useState(0);
     const [autoRotate, SetAutoRotate] = useState(false);
     const [color, SetColor] = useState(handler.GetCarData(selectedCarId).Colors[0].color);
-
+    const [selectedCar, setSelectedCar] = useState<Group<Object3DEventMap>>();
+    const [materialMetallic, setMaterialMetallic] = useState(0.1);
+    const [materialRoughness,setMaterialRoughness ] = useState(0.1);
+    const [rotation, setRotation] = useState(0.5);
+    const [elevation, setElevation] = useState(0.5);
+    const [azimuth, setAzimuth] = useState(0.5);
     return <>
         <div className={Styles['canvasContainer']}>
-            <Canvas gl={{antialias: true}} className={Styles['canvas']} shadows={true}>
+            <Canvas gl={{ preserveDrawingBuffer: false, antialias: true, powerPreference: "high-performance" }} className={Styles['canvas']} shadows={true}>
                 <mesh receiveShadow={true} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
                     <planeGeometry args={[100, 100]} />
                     <shadowMaterial opacity={0.4}  />
@@ -27,23 +32,32 @@ function App() {
                 <PerspectiveCamera fov={75} aspect={window.innerWidth / window.innerHeight}
                                    near={0.1} far={1000} position={[0,0,5]} makeDefault />
                 <OrbitControlsHandler autoRotate={autoRotate}/>
-                <CarSpawner handler={handler} id={selectedCarId} color={color} />
+                <CarSpawner handler={handler} id={selectedCarId} SetCar={(car) => {setSelectedCar(car);}}/>
+                {selectedCar && <CarPropertiesUpdater color={color} car={selectedCar} roughness={materialRoughness} metalness={materialMetallic}/>}
 
-                <DirectionalLight />
+                <DirectionalLight rotation={rotation}  elevation={elevation} azimuth={azimuth} />
                 <HemisphereLight />
                 <AmbientLight />
 
                 <Environment files="public/Hdri/outdoor_umbrellas_4k.hdr" background
-                             ground={{
-                                 height:5, // Ground height offset
-                                 radius: 50, // Ground radius
-                                 scale: 100, // Ground scale
-                             }}
+                     ground={{
+                         height:5, // Ground height offset
+                         radius: 50, // Ground radius
+                         scale: 100, // Ground scale
+                     }}
                 >
 
                 </Environment>
             </Canvas>
-        <UIHandler handler={handler} GetCarID={SetSelectedCarId} GetAutoRotate={SetAutoRotate} autoRotate={autoRotate} GetColor={SetColor} colorData={handler.GetCarData(selectedCarId).Colors}></UIHandler>
+        <UIHandler handler={handler} setRoughness={setMaterialRoughness}
+                   setMetallic={setMaterialMetallic} GetCarID={(id:number)=>{
+             SetSelectedCarId(id);
+        }}
+           GetAutoRotate={SetAutoRotate} autoRotate={autoRotate}
+           GetColor={SetColor} colorData={handler.GetCarData(selectedCarId).Colors}
+           SetDirectionalLightRotation={setRotation} SetDirectionalLightElevation={setElevation}
+           SetDirectionalLightAzimuth={setAzimuth}
+        />
         </div>
     </>
 }

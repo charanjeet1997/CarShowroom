@@ -1,0 +1,88 @@
+.adjusterContainer {
+    position: fixed;
+    top: 5rem;
+    right: 2rem;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(16px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    color: #fff;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    z-index: 999;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-family: 'Barlow', sans-serif;
+}
+
+.sliderGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: #ddd;
+}
+
+.slider {
+    width: 100%;
+    appearance: none;
+    height: 8px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.15);
+    outline: none;
+    transition: background 0.2s;
+}
+
+.slider:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: #eee;
+}
+
+.slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+}
+
+/* Optional Close Button (top-right corner of panel) */
+.closeButton {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.2rem;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.closeButton:hover {
+    transform: scale(1.2);
+}

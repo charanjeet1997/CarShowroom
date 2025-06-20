@@ -10,14 +10,13 @@ interface Props {
 
 function CarSelector({ handler, OnClick, onBack }: Props) {
     const [selectedCar, setSelectedCar] = useState<number | null>(null);
-
-    return (
-        <>
-            <button className={Styles.backButton} onClick={() => onBack?.(0)}>
-                ← Back
-            </button>
-
-            <div className={Styles.carMenu}>
+    const backButtonSize = "25";
+    return (<div className={Styles.carMenu}>
+                <button className={Styles.carButton} onClick={() => onBack?.(0)} title="Back">
+                    <svg width={backButtonSize} height={backButtonSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                </button>
                 {handler.data.map((data: CarData) => (
                     <button
                         key={data.id}
@@ -31,7 +30,6 @@ function CarSelector({ handler, OnClick, onBack }: Props) {
                     </button>
                 ))}
             </div>
-        </>
     );
 }
 

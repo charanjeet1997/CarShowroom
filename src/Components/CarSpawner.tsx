@@ -1,60 +1,28 @@
-import {Color, Mesh, MeshStandardMaterial} from "three";
+import { Group, type Object3DEventMap} from "three";
 import {CarDataHandler} from "../Data/CarData.ts";
 import {useGLTF} from "@react-three/drei";
+import {useState} from "react";
 
 interface Props
 {
-    id?: number;
+    id: number;
     handler: CarDataHandler
-    color: Color
+    SetCar: (car: Group<Object3DEventMap>) => void;
 }
-function CarSpawner({handler,id,color}: Props)
+function CarSpawner({handler,id,SetCar}: Props)
 {
-    return <>
-
-        <SpawnCar id={id} handler={handler} color={color}></SpawnCar>
-        {/*<SpawnCar id={0}></SpawnCar>*/}
-    </>
-}
-
-function SpawnCar({id,handler,color}:Props)
-{
+    const [carID, setCarID] = useState(-1)
+    const [carScene, setCarScene] = useState<Group<Object3DEventMap>>()
     const car = useGLTF(handler.GetCarData(id as number).modelPath);
-    car.scene.traverse((child) => {
-        const mesh = child as Mesh;
-        mesh.castShadow = true;
-        if(mesh.material)
-        {
-            const material = mesh.material as MeshStandardMaterial;
-            if(material.name.toLowerCase().includes('tyre'))
-            {
-                material.roughness = 0.8;
-                material.metalness = 0.1;
-            }
-            else if(material.name.toLowerCase().includes("window"))
-            {
-                material.roughness = 0.15;
-                material.metalness = 0.5;
-            }
-            else if(material.name.toLowerCase().includes("body"))  {
-                material.roughness = .08;
-                material.metalness = .45;
-            }
-            else if(material.name.toLowerCase().includes("rim"))  {
-                material.roughness = .08;
-                material.metalness = .45;
-            }
-            else
-            {
-                material.roughness = .5;
-                material.metalness = .1;
-            }
-            if(material.name.toLowerCase().includes("body"  ))
-                material.color = color;
-        }
-    })
-    car.scene.scale.set(1,1,1);
-    return <primitive object={car.scene} />;
+    if(carID !== id)
+    {
+        setCarID(id);
+        SetCar(car.scene);
+        car.scene.scale.set(1,1,1);
+        setCarScene(car.scene);
+        return <primitive object={car.scene} />;
+    }
+    return carScene && <primitive object={carScene} />;
 }
 
 export default CarSpawner;

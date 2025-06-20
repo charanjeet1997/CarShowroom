@@ -53,23 +53,32 @@
     letter-spacing: 0.05em;
 }
 
+/* Back button inside the colorMenu */
 .backButton {
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    flex: 0 0 auto;
+    padding: 0.4rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%; /* Circle */
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.3s ease;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.4rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.8rem;
-    backdrop-filter: blur(8px);
-    z-index: 1000;
-    transition: all 0.2s ease;
+    font-size: 1.2rem; /* Slightly larger for visibility (←) */
+    line-height: 1;
 }
 
 .backButton:hover {
-    background: rgba(255, 255, 255, 0.25);
-    color: #111;
-    border-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.backButton:active {
+    transform: scale(0.95);
 }

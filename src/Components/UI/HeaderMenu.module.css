@@ -1,0 +1,37 @@
+.headerMenu {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    z-index: 1000;
+}
+
+.iconButton {
+    width: 56px; /* ⬅️ slightly larger for better clickability, adjust as needed */
+    height: 56px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition:
+            transform 0.2s ease,
+            background 0.2s ease,
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.iconButton:hover {
+    background: rgba(0, 0, 0, 0.75);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.iconButton:active {
+    transform: scale(0.95);
+}

@@ -1,6 +1,12 @@
-export function DirectionalLight() {
+interface DirectionalLightProps {
+   rotation: number;
+   elevation: number;
+   azimuth: number;
+}
+
+export function DirectionalLight({rotation,elevation,azimuth}:DirectionalLightProps) {
     return <directionalLight
-        position={[-15, 20, 0]}
+        position={[rotation, elevation, azimuth]}
         intensity={1}
         castShadow
         shadow-bias={-0.0005}
