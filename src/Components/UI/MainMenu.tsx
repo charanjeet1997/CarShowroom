@@ -1,5 +1,5 @@
 import Styles from './MainMenu.module.css';
-import {DownloadScreenShot} from "../../Models/ScreenShotDownloader.ts";
+import {DownloadScreenShot} from "../ScreenShotDownloader.ts";
 
 interface Props {
     onUIClick: (index: number) => void;
