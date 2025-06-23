@@ -9,9 +9,9 @@ export function DirectionalLight({rotation,elevation,azimuth}:DirectionalLightPr
         position={[rotation, elevation, azimuth]}
         intensity={1}
         castShadow
-        shadow-bias={-0.0005}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+        shadow-bias={-0.00005}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
         shadow-camera-left={-50}
         shadow-camera-right={50}
         shadow-camera-top={50}

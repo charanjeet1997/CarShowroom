@@ -1,4 +1,5 @@
 import Styles from './MainMenu.module.css';
+import {DownloadScreenShot} from "../../Models/ScreenShotDownloader.ts";
 
 interface Props {
     onUIClick: (index: number) => void;
@@ -19,7 +20,7 @@ function MainMenu({onUIClick,OnAutoRotate,autoRotate}: Props) {
                 OnAutoRotate(!autoRotate)
             }}>🔁 Auto Rotate</button>
             <button className={Styles.menuButton} onClick={() => {
-
+                    DownloadScreenShot();
             }}>⬇️ Download</button>
         </footer>
     );
