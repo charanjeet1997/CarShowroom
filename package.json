@@ -1,6 +1,6 @@
 {
   "name": "cargaragereactthreefiber",
-  "homepage": "https://charanjeet1997.github.io/CarShowroomBuild/",
+  "homepage": "https://charanjeet1997.github.io/CarShowroom/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "start": "serve dist",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d distgit"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.7",
