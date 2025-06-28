@@ -4,31 +4,41 @@
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
     align-items: center;
+    padding: 0.75rem 1.5rem;
     background: rgba(30, 30, 30, 0.5);
     backdrop-filter: blur(12px);
     border-radius: 1rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     z-index: 999;
-    overflow-x: auto;
-    max-width: 90vw;
+    max-width: 95vw;
+    gap: 1rem;
 }
 
-.colorMenu::-webkit-scrollbar {
+/* Separate container for scrollable color buttons */
+.colorButtonsContainer {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;                /* ✅ Adds spacing between scrollbar and buttons */
+    scrollbar-gutter: stable both-edges;  /* ✅ Prevents layout shift when scrollbar appears */
+}
+
+.colorButtonsContainer::-webkit-scrollbar {
     height: 6px;
 }
-.colorMenu::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+
+.colorButtonsContainer::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 3px;
 }
-.colorMenu::-webkit-scrollbar-track {
+
+.colorButtonsContainer::-webkit-scrollbar-track {
     background: transparent;
 }
 
 .colorButton {
-    position: relative;
     flex: 0 0 auto;
     padding: 0.4rem;
     background: rgba(255, 255, 255, 0.05);
@@ -56,49 +66,25 @@
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Custom tooltip on hover */
-.colorButton::after {
-    content: attr(title);
-    position: fixed;
-    background: rgba(0, 0, 0, 0.85);
-    color: #fff;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    z-index: 9999;
-    top: auto; /* We’ll set this dynamically in JS */
-    left: auto;
-}
-.colorButton:hover::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* Back button inside the colorMenu */
+/* Back button fixed in menu */
 .backButton {
-    position: relative;
     flex: 0 0 auto;
     padding: 0.4rem;
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%; /* Circle */
+    border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s ease, border-color 0.3s ease;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 1.2rem; /* Slightly larger for visibility (←) */
-    line-height: 1;
+    font-size: 1.2rem;
 }
 
 .backButton:hover {
@@ -109,4 +95,28 @@
 
 .backButton:active {
     transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .colorMenu {
+        width: 95%;
+        padding: 0.5rem 1rem;
+        bottom: 1rem;
+    }
+
+    .colorButtonsContainer {
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .colorButton {
+        width: 42px;
+        height: 42px;
+    }
+
+    .backButton {
+        width: 40px;
+        height: 40px;
+    }
 }

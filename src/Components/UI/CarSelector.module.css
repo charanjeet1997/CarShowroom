@@ -5,16 +5,37 @@
     transform: translateX(-50%);
     display: flex;
     gap: 1rem;
-    padding: 1rem 2rem;
+    padding: 0.75rem 1.5rem;
     background: rgba(30, 30, 30, 0.5);
     backdrop-filter: blur(12px);
     border-radius: 1rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     z-index: 999;
+    align-items: center;
+}
+
+/* Container for just the car buttons (scrollable) */
+.carButtonsContainer {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;         /* ✅ Adds spacing between scrollbar and buttons */
+    scrollbar-gutter: stable both-edges; /* ✅ Prevent layout shift when scrollbar appears */
+}
+
+.carButtonsContainer::-webkit-scrollbar {
+    height: 8px;
+}
+
+.carButtonsContainer::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
 }
 
 .carButton {
-    padding: 0.75rem 1.8rem;
+    flex: 0 0 auto; /* Prevent shrinking */
+    padding: 0.5rem 1.2rem;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -27,6 +48,7 @@
     transition: all 0.25s ease, transform 0.2s ease;
     backdrop-filter: blur(6px);
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 4px 12px rgba(0,0,0,0.3);
+    white-space: nowrap;
 }
 
 .carButton:hover {
@@ -46,31 +68,22 @@
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
 }
 
-.carName {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-}
-
-/* Back button inside the colorMenu */
+/* Back button */
 .backButton {
-    position: relative;
     flex: 0 0 auto;
     padding: 0.4rem;
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%; /* Circle */
+    border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s ease, border-color 0.3s ease;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 1.2rem; /* Slightly larger for visibility (←) */
-    line-height: 1;
+    font-size: 1.2rem;
 }
 
 .backButton:hover {
@@ -81,4 +94,27 @@
 
 .backButton:active {
     transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carMenu {
+        width: 95%;
+        padding: 0.5rem 1rem;
+        bottom: 1rem;
+    }
+
+    .carButtonsContainer {
+        gap: 0.5rem;
+    }
+
+    .carButton {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .backButton {
+        width: 40px;
+        height: 40px;
+    }
 }

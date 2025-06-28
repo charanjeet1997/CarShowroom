@@ -10,6 +10,7 @@ interface Props {
 
 function ColorSelector({ OnClick, onBack, colorData }: Props) {
     const backButtonSize = "25";
+
     return (
         <div className={Styles.colorMenu}>
             <button className={Styles.backButton} onClick={() => onBack?.(0)} title="Back">
@@ -18,21 +19,23 @@ function ColorSelector({ OnClick, onBack, colorData }: Props) {
                 </svg>
             </button>
 
-            {colorData.map((data: ColorData) => (
-                <button
-                    key={data.name}
-                    className={Styles.colorButton}
-                    onClick={() => OnClick?.(data.color)}
-                    title={data.name}
-                >
-                    <span
-                        className={Styles.colorSwatch}
-                        style={{
-                            background: `rgb(${data.color.r * 255}, ${data.color.g * 255}, ${data.color.b * 255})`
-                        }}
-                    />
-                </button>
-            ))}
+            <div className={Styles.colorButtonsContainer}>
+                {colorData.map((data: ColorData) => (
+                    <button
+                        key={data.name}
+                        className={Styles.colorButton}
+                        onClick={() => OnClick?.(data.color)}
+                        title={data.name}
+                    >
+                        <span
+                            className={Styles.colorSwatch}
+                            style={{
+                                background: `rgb(${data.color.r * 255}, ${data.color.g * 255}, ${data.color.b * 255})`
+                            }}
+                        />
+                    </button>
+                ))}
+            </div>
         </div>
     );
 }

@@ -8,8 +8,8 @@
 }
 
 .iconButton {
-    width: 56px; /* ⬅️ slightly larger for better clickability, adjust as needed */
-    height: 56px;
+    width: 63px; /* ⬅️ slightly larger for better clickability, adjust as needed */
+    height: 63px;
     background: rgba(0, 0, 0, 0.6);
     border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
